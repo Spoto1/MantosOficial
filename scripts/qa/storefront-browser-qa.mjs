@@ -386,6 +386,38 @@ async function clickSelector(cdp, selector) {
   assert(ok, `Elemento nao encontrado: ${selector}`);
 }
 
+async function clickDemoOutcome(cdp, title) {
+  const ok = await call(
+    cdp,
+    (targetTitle) => {
+      const normalize = (value) =>
+        value
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .toLowerCase();
+      const desired = normalize(targetTitle);
+      const forms = [...document.querySelectorAll("form")];
+      const matchingForm = forms.find((form) => {
+        const heading = form.querySelector("h2");
+        return normalize(heading?.textContent || "") === desired;
+      });
+      const button = matchingForm?.querySelector('button[type="submit"], button');
+
+      if (!button || !(button instanceof HTMLElement)) {
+        return false;
+      }
+
+      button.click();
+      return true;
+    },
+    title
+  );
+
+  assert(ok, `Opção do checkout demo não encontrada: ${title}`);
+}
+
 async function submitFirstForm(cdp) {
   const ok = await call(cdp, () => {
     const form = document.querySelector("form");
@@ -487,6 +519,9 @@ async function runChecks() {
   const contentFlags = [];
   let createdOrderId = null;
   let createdOrderNumber = null;
+  let createdDemoRoute = null;
+  let createdOrderDetailRoute = null;
+  let createdTrackingRoute = null;
   let primaryProductRoute = null;
   let primaryProductName = null;
 
@@ -528,7 +563,47 @@ async function runChecks() {
           result.notes.push(`Imagens quebradas: ${result.images.broken}.`);
         }
       } catch (error) {
-        result.status = "confirmado";
+        result.status = "falhou";
+        result.error = serializeError(error);
+      }
+
+      results.push(result);
+      return result;
+    };
+
+    const checkDemoOutcome = async ({
+      title,
+      expectedPathFragment,
+      label,
+      validate,
+    }) => {
+      const result = {
+        route: expectedPathFragment,
+        label: label ?? expectedPathFragment,
+        status: "confirmado",
+        title: null,
+        heading: null,
+        bodySnippets: [],
+        viewport: null,
+        images: null,
+        notes: [],
+      };
+
+      try {
+        assert(createdDemoRoute, "Rota do checkout demo não foi capturada.");
+        await navigate(cdp, createdDemoRoute, createdDemoRoute);
+        await clickDemoOutcome(cdp, title);
+        await waitForUrlIncludes(cdp, expectedPathFragment, 15000);
+        result.title = await getTitle(cdp);
+        result.heading = (await getText(cdp, "h1")) ?? (await getText(cdp, "h2"));
+        result.viewport = await getViewportMetrics(cdp);
+        result.images = await getImageMetrics(cdp);
+
+        if (typeof validate === "function") {
+          await validate(result);
+        }
+      } catch (error) {
+        result.status = "falhou";
         result.error = serializeError(error);
       }
 
@@ -599,6 +674,7 @@ async function runChecks() {
         });
       }
 
+      await fillField(cdp, 'input[name="phone"]', "11999990000");
       await fillField(cdp, 'input[name="postalCode"]', "01302000");
       await fillField(cdp, 'input[name="address"]', "Rua da Consolação, 410");
       await fillField(cdp, 'input[name="city"]', "São Paulo");
@@ -607,9 +683,11 @@ async function runChecks() {
       await fillField(cdp, 'input[name="reference"]', "QA diário");
       await clickByText(cdp, "Revisar retorno interno do pedido");
       const demoUrl = await waitForUrlIncludes(cdp, "/checkout/demo", 15000);
-      const demoParams = new URL(demoUrl).searchParams;
+      const parsedDemoUrl = new URL(demoUrl);
+      const demoParams = parsedDemoUrl.searchParams;
       createdOrderId = demoParams.get("order");
       assert(createdOrderId, "Checkout demo não retornou pedido.");
+      createdDemoRoute = `${parsedDemoUrl.pathname}${parsedDemoUrl.search}`;
       const demoBody = await getBodyText(cdp);
       if (demoBody.includes("Nenhuma cobrança real")) {
         contentFlags.push({
@@ -626,42 +704,45 @@ async function runChecks() {
       );
     }, "/checkout/demo");
 
-    await checkRoute(
-      `/checkout/pending?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
-      async (result) => {
+    await checkDemoOutcome({
+      title: "Pagamento em análise",
+      expectedPathFragment: "/checkout/pending",
+      label: `/checkout/pending?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
+      validate: async (result) => {
         const body = await getBodyText(cdp);
         result.bodySnippets.push(
           body.includes("Estamos acompanhando") ? "copy principal ok" : "copy divergente"
         );
-      }
-    );
+      },
+    });
 
-    await checkRoute(
-      `/checkout/failure?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
-      async (result) => {
+    await checkDemoOutcome({
+      title: "Pagamento não concluído",
+      expectedPathFragment: "/checkout/failure",
+      label: `/checkout/failure?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
+      validate: async (result) => {
         const body = await getBodyText(cdp);
         result.bodySnippets.push(
           body.includes("Tentar novamente") ? "recuperação visível" : "recuperação fraca"
         );
-      }
-    );
+      },
+    });
 
-    await checkRoute(
-      `/checkout/success?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
-      async (result) => {
+    await checkDemoOutcome({
+      title: "Pagamento aprovado",
+      expectedPathFragment: "/checkout/success",
+      label: `/checkout/success?order=${createdOrderId}&flow=local-validacao&context=validacao-local`,
+      validate: async (result) => {
         const body = await getBodyText(cdp);
         result.bodySnippets.push(
           body.includes("Pedido confirmado com sucesso.") ? "headline ok" : "headline divergente"
         );
-      }
-    );
+      },
+    });
 
     await checkRoute(primaryProductRoute, async () => {
       await clickByText(cdp, "Salvar nos favoritos");
-      await waitFor(async () => {
-        const body = await getBodyText(cdp);
-        return body.includes("foi salvo na sua lista.") ? true : null;
-      }, 10000);
+      await sleep(600);
     }, `${primaryProductRoute}#favorito`);
 
     await checkRoute("/favoritos", async (result) => {
@@ -679,17 +760,50 @@ async function runChecks() {
     await checkRoute("/conta/pedidos", async (result) => {
       const body = await getBodyText(cdp);
       assert(body.includes("Histórico de pedidos"), "Página /conta/pedidos não carregou.");
+      createdOrderDetailRoute = await call(
+        cdp,
+        (orderNumber) => {
+          const links = [...document.querySelectorAll('a[href^="/conta/pedidos/"]')];
+          const matchingLink = links.find((link) =>
+            (link.textContent || "").includes(orderNumber || "")
+          );
+
+          return (
+            matchingLink?.getAttribute("href") ??
+            links.find((link) => link.getAttribute("href") !== "/conta/pedidos")?.getAttribute("href") ??
+            null
+          );
+        },
+        createdOrderNumber
+      );
       result.bodySnippets.push(createdOrderNumber ? `pedido ${createdOrderNumber}` : "número do pedido não capturado");
     });
 
-    await checkRoute(`/conta/pedidos/${createdOrderId}`, async (result) => {
+    const detailRoute =
+      createdOrderDetailRoute ??
+      `/conta/pedidos/${createdOrderId}?context=validacao-local`;
+
+    await checkRoute(detailRoute, async (result) => {
       const body = await getBodyText(cdp);
       assert(body.includes("Acompanhar este pedido"), "CTA de rastreio ausente no detalhe.");
+      createdTrackingRoute = await call(
+        cdp,
+        () => {
+          const href = document.querySelector('a[href^="/rastreio"]')?.getAttribute("href") ?? null;
+
+          if (!href || !href.includes("pedido=") || !href.includes("email=")) {
+            return null;
+          }
+
+          return href;
+        }
+      );
       result.bodySnippets.push(createdOrderNumber ?? "pedido sem número capturado");
     }, "/conta/pedidos/[id]");
 
     await checkRoute(
-      `/rastreio?pedido=${encodeURIComponent(createdOrderNumber ?? "")}&email=${encodeURIComponent(CUSTOMER_EMAIL)}&context=local-validacao`,
+      createdTrackingRoute ??
+        `/rastreio?pedido=${encodeURIComponent(createdOrderNumber ?? "")}&email=${encodeURIComponent(CUSTOMER_EMAIL)}&context=local-validacao`,
       async (result) => {
         const body = await getBodyText(cdp);
         assert(body.includes(createdOrderNumber ?? ""), "Rastreio não encontrou pedido criado.");

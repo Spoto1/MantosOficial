@@ -83,6 +83,13 @@ async function main() {
       createdAt: "asc"
     }
   });
+  const purchasableVariant = product.variants.find(
+    (variant) => variant.isActive && variant.stock > 0
+  );
+
+  if (!purchasableVariant) {
+    throw new Error(`Nenhuma variação com estoque disponível foi encontrada para ${product.name}.`);
+  }
 
   const mockCheckout = await createMockCheckout(
     {
@@ -100,10 +107,10 @@ async function main() {
       items: [
         {
           productId: product.id,
-          variantId: product.variants[0]!.id,
+          variantId: purchasableVariant.id,
           quantity: 1,
-          size: product.variants[0]!.size.label,
-          color: product.variants[0]!.colorName
+          size: purchasableVariant.size.label,
+          color: purchasableVariant.colorName
         }
       ]
     },
