@@ -12,6 +12,7 @@ tmp/
 output/
 .playwright-cli/
 .codex-tmp/
+.agents/
 .codex-*.log
 codex-*.log
 *.err.log

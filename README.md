@@ -49,7 +49,7 @@ Decisão arquitetural importante:
 - Em desenvolvimento local, deixe `APP_URL` e `NEXT_PUBLIC_APP_URL` vazios por padrão.
 - O runtime passa a usar a origem ativa do preview local para metadata, canonicals e retornos guiados quando o acesso vier por `localhost`, `127.0.0.1` ou IP privado de rede local.
 - Se você quiser travar um host público real de staging, defina `APP_URL` e `NEXT_PUBLIC_APP_URL` com a mesma origem e mantenha esse valor sincronizado com o preview usado.
-- Se Stripe ainda nao estiver configurado nesse ambiente, use `ALLOW_LOCAL_DEMO_CHECKOUT=true` apenas no ambiente local para revisar checkout, success, pending e failure sem cobranca real.
+- Se Stripe ainda nao estiver configurado nesse ambiente, habilite `ALLOW_LOCAL_DEMO_CHECKOUT=true` manualmente apenas no ambiente local para revisar checkout, success, pending e failure sem cobranca real.
 - Esse retorno guiado continua disponível em `npm run dev` e também em `next start` local, mas permanece bloqueado em qualquer ambiente público.
 - Em produção, continue definindo a URL pública real e não use o checkout demo como substituto operacional.
 
@@ -74,7 +74,7 @@ Decisão arquitetural importante:
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: chave pública da mesma conta Stripe. Deve existir junto da secret key e na mesma modalidade (`test` ou `live`).
 - `STRIPE_WEBHOOK_SECRET`: segredo do endpoint `POST /api/webhooks/stripe`. Use o valor `whsec_...` do endpoint e mantenha um segredo diferente por ambiente.
 - `STRIPE_PAYMENT_METHOD_TYPES`: opcional para limitar meios do Stripe Checkout por ambiente.
-- `ALLOW_LOCAL_DEMO_CHECKOUT`: libera checkout demo apenas fora de produção e somente quando Stripe ainda não estiver configurado nesse ambiente.
+- `ALLOW_LOCAL_DEMO_CHECKOUT`: libera checkout demo apenas fora de produção e somente quando Stripe ainda não estiver configurado nesse ambiente. Em `.env.example`, fica desabilitado por padrão para não contaminar staging por engano.
 - `STORAGE_DRIVER`: atualmente `local`.
 - `STORAGE_PUBLIC_BASE_URL`: host público do storage externo quando existir.
 - `NEXT_IMAGE_REMOTE_HOSTS`: lista de hosts remotos permitidos para `next/image`.
