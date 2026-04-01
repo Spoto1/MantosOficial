@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="atlasBody" x1="120" x2="360" y1="90" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7f2824" />
+      <stop offset="0.55" stop-color="#ba5d35" />
+      <stop offset="1" stop-color="#f1ca86" />
+    </linearGradient>
+    <clipPath id="atlasClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".12" />
+  <path fill="url(#atlasBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#atlasClip)">
+    <path fill="#f4dfc0" opacity=".95" d="M204 68h72v72h-72z" />
+    <path fill="#f4dfc0" opacity=".92" d="M113 200h254v34H113z" />
+    <path fill="#f3c883" opacity=".32" d="M128 112h34v360h-34zM318 112h34v360h-34z" />
+    <path fill="#fff" opacity=".16" d="M220 104h40v350h-40z" />
+    <path fill="#6e241f" opacity=".34" d="M94 238h292v18H94zM94 288h292v18H94zM94 338h292v18H94z" />
+    <circle cx="240" cy="154" r="36" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="8" />
+  </g>
+  <path fill="#29100f" d="M206 106h68l16 34h-100z" opacity=".75" />
+  <path fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

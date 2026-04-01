@@ -1,0 +1,47 @@
+{
+  "name": "orbe-mantos",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --max-warnings=0",
+    "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
+    "build": "next build",
+    "test:smoke": "node --import tsx --test tests/**/*.test.ts",
+    "qa:admin:browser": "node scripts/qa/admin-browser-qa.mjs",
+    "qa:storefront:browser": "node scripts/qa/storefront-browser-qa.mjs",
+    "qa:storefront:http": "node --conditions=react-server --import tsx scripts/qa/storefront-http-qa.ts",
+    "local:open": "scripts\\local\\open-localhost.bat",
+    "start": "next start",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "prisma db seed",
+    "prisma:seed:demo": "tsx prisma/seed.ts --demo-reset --confirm-reset"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1",
+    "stripe": "^21.0.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.5.6",
+    "postcss": "^8.4.49",
+    "prisma": "^6.16.0",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}

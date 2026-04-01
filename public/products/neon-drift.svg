@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="neonBody" x1="116" x2="358" y1="82" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111111" />
+      <stop offset=".56" stop-color="#293426" />
+      <stop offset="1" stop-color="#d2f561" />
+    </linearGradient>
+    <clipPath id="neonClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".14" />
+  <path fill="url(#neonBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#neonClip)">
+    <path fill="#d2f561" opacity=".32" d="M92 252 358 146l10 24L102 276z" />
+    <path fill="#d2f561" opacity=".18" d="M110 294 376 188l10 24L120 318zM128 336 394 230l10 24L138 360z" />
+    <path fill="#d2f561" opacity=".3" d="M138 114h12v340h-12zM330 114h12v340h-12z" />
+    <path fill="#fff" opacity=".1" d="M206 72h68v58h-68z" />
+    <circle cx="240" cy="160" r="42" fill="none" stroke="#d2f561" stroke-opacity=".16" stroke-width="8" />
+  </g>
+  <path fill="#0b0b0b" d="M206 106h68l16 30h-100z" opacity=".95" />
+  <path fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

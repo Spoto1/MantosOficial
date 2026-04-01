@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mantos Oficial">
+  <rect width="64" height="64" rx="18" fill="#111111" />
+  <path
+    d="M15 45V19h6.8l10.2 13.1L42 19H49v26h-6V29.5l-10.9 13.7-10.3-13.5V45H15Z"
+    fill="#F4EDE1"
+  />
+  <path
+    d="M49.1 32c0-7 5.3-12 12.9-12v5.8c-3.8 0-6 2.3-6 6.2 0 3.8 2.3 6.2 6 6.2V44c-7.6 0-12.9-5-12.9-12Z"
+    fill="#C9A86A"
+    transform="translate(-11)"
+  />
+</svg>

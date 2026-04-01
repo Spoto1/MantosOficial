@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="auroraBody" x1="104" x2="362" y1="88" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#20304e" />
+      <stop offset="0.5" stop-color="#42689e" />
+      <stop offset="1" stop-color="#a4d0de" />
+    </linearGradient>
+    <clipPath id="auroraClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".1" />
+  <path fill="url(#auroraBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#auroraClip)">
+    <path fill="#f7f4ef" d="M206 72h68v64h-68z" opacity=".98" />
+    <path fill="#f7f4ef" opacity=".92" d="M80 246 380 122l20 42L100 288z" />
+    <path fill="#0f1e37" opacity=".2" d="M70 300 370 176l16 34L86 334zM70 352 370 228l16 34L86 386z" />
+    <path fill="#fff" opacity=".18" d="M124 124h18v332h-18zM338 124h18v332h-18z" />
+    <circle cx="240" cy="162" r="42" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="10" />
+  </g>
+  <path fill="#dce7ee" d="M206 106h68l16 30h-100z" opacity=".96" />
+  <path fill="none" stroke="#fff" stroke-opacity=".24" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

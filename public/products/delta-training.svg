@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="deltaBody" x1="112" x2="360" y1="72" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10312b" />
+      <stop offset=".55" stop-color="#29534c" />
+      <stop offset="1" stop-color="#9cd0bf" />
+    </linearGradient>
+    <clipPath id="deltaClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".1" />
+  <path fill="url(#deltaBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#deltaClip)">
+    <path fill="#b7e2d4" opacity=".14" d="M116 126h248v24H116zM116 170h248v12H116z" />
+    <path fill="#b7e2d4" opacity=".24" d="M136 222h208v10H136zM136 252h208v10H136zM136 282h208v10H136zM136 312h208v10H136z" />
+    <path fill="#0d1f1c" opacity=".24" d="M90 350h300v74H90z" />
+    <path fill="#fff" opacity=".14" d="M146 112h16v344h-16zM318 112h16v344h-16z" />
+    <circle cx="240" cy="164" r="44" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="10" />
+  </g>
+  <path fill="#06211c" d="M206 106h68l16 30h-100z" opacity=".9" />
+  <path fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

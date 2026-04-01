@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="brBody" x1="120" x2="356" y1="74" y2="458" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f1413" />
+      <stop offset=".55" stop-color="#17342d" />
+      <stop offset="1" stop-color="#b4943a" />
+    </linearGradient>
+    <clipPath id="brClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".12" />
+  <path fill="url(#brBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#brClip)">
+    <path fill="#f4efe4" d="M158 134h164v252H158z" opacity=".98" />
+    <path fill="#102032" d="M300 134h22v252h-22z" opacity=".18" />
+    <path fill="#17342d" d="M158 126h164v18H158z" opacity=".88" />
+    <path fill="#b4943a" d="M158 174h164v6H158zM158 340h164v6H158z" opacity=".84" />
+    <path fill="#17342d" d="M172 134h12v252h-12zM296 134h12v252h-12z" opacity=".16" />
+    <path fill="#102032" d="M188 134h4v252h-4zM288 134h4v252h-4z" opacity=".16" />
+    <path fill="#17342d" d="M120 124h54v330h-54zM306 124h54v330h-54z" opacity=".78" />
+    <path fill="#fff" d="M210 106h60v60h-60z" opacity=".95" />
+    <path fill="#b4943a" d="M214 194h52v60h-52z" opacity=".12" />
+    <path fill="#b4943a" d="M214 264h52v60h-52z" opacity=".08" />
+    <path fill="#fff" d="M144 122h8v332h-8zM328 122h8v332h-8z" opacity=".12" />
+  </g>
+  <path fill="#f1ead9" d="M206 106h68l16 28h-100z" opacity=".96" />
+  <path fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

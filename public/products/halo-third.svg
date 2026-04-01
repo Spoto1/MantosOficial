@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="haloBody" x1="110" x2="360" y1="74" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d7cbb8" />
+      <stop offset=".52" stop-color="#f6f1e8" />
+      <stop offset="1" stop-color="#5f774f" />
+    </linearGradient>
+    <clipPath id="haloClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".11" />
+  <path fill="url(#haloBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#haloClip)">
+    <path fill="#516a49" opacity=".16" d="M126 108h20v350h-20zM164 108h10v350h-10zM306 108h10v350h-10zM334 108h20v350h-20z" />
+    <path fill="#516a49" opacity=".18" d="M196 108h8v350h-8zM216 108h6v350h-6zM258 108h6v350h-6zM276 108h8v350h-8z" />
+    <path fill="#f7f2e9" d="M206 72h68v64h-68z" opacity=".98" />
+    <path fill="#40523b" opacity=".12" d="M80 248h320v22H80zM80 308h320v22H80zM80 368h320v22H80z" />
+    <path fill="#fff" opacity=".22" d="M134 110h6v350h-6zM344 110h6v350h-6z" />
+  </g>
+  <path fill="#eff2e8" d="M206 106h68l16 28h-100z" opacity=".96" />
+  <path fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>

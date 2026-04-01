@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 520">
+  <defs>
+    <linearGradient id="solaceBody" x1="110" x2="356" y1="82" y2="442" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#432a1b" />
+      <stop offset=".55" stop-color="#956544" />
+      <stop offset="1" stop-color="#e1c4aa" />
+    </linearGradient>
+    <clipPath id="solaceClip">
+      <path d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+    </clipPath>
+  </defs>
+  <ellipse cx="240" cy="468" rx="126" ry="18" fill="#000" opacity=".1" />
+  <path fill="url(#solaceBody)" d="M154 74 206 106h68l52-32 48 78-38 42v228c0 18-14 32-32 32H126c-18 0-32-14-32-32V194l-38-42 48-78Z" />
+  <g clip-path="url(#solaceClip)">
+    <path fill="#d8b899" opacity=".14" d="M110 120h260v296H110z" />
+    <path fill="#f7ebdd" opacity=".16" d="M124 150h232v26H124zM124 192h232v14H124z" />
+    <path fill="#5f3e2a" opacity=".35" d="M228 106h24v350h-24z" />
+    <path fill="#fff" opacity=".12" d="M148 112h14v344h-14zM318 112h14v344h-14z" />
+    <path fill="#f0d8c0" opacity=".16" d="M118 332h244v64H118z" />
+  </g>
+  <path fill="#2b1c13" d="M198 94h84v24H198z" />
+  <rect x="233" y="106" width="14" height="72" rx="6" fill="#e9d6c4" />
+  <path fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="6" d="M154 74 206 106h68l52-32" />
+</svg>
